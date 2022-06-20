@@ -12,12 +12,13 @@ import java.util.List;
  */
 @Data
 public class CardModelVo {
-    private List<List<CardAovVo>> aov_list;
+    private List<List<List<CardAovVo>>> aov_list;
     
     private List<CardBottomVo> bottom_card_list;
 
-    public CardModelVo(List<List<CardAovVo>> aov_list, List<CardBottomVo> bottom_card_list) {
+    public CardModelVo(List<List<List<CardAovVo>>> aov_list, List<CardBottomVo> bottom_card_list) {
         this.aov_list = aov_list;
+
         this.bottom_card_list = bottom_card_list;
     }
 

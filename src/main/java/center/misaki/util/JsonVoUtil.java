@@ -5,10 +5,7 @@ import center.misaki.model.CardBottom;
 import center.misaki.model.StructAov;
 import center.misaki.vo.CardModelVo;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Misaki
@@ -27,16 +24,26 @@ public class JsonVoUtil {
         //牌底集合
         Map<Integer, CardBottom> cardBottomHashMap = structAov.getCardBottomHashMap();
         //构造 aov_list 
-        List<List<CardModelVo.CardAovVo>> aov_list = new ArrayList<>();
+        List<List<List<CardModelVo.CardAovVo>>> aov_list = new ArrayList<>();
+       
         boolean[] vis=new boolean[cardAovHashMap.size()];
         Arrays.fill(vis,false);
         cardAovHashMap.forEach((k,v)->{
             if(vis[k]) return;
             vis[k]=true;
-            List<CardModelVo.CardAovVo> cardAovVos = new ArrayList<>();
+            Map<Integer,List<CardModelVo.CardAovVo>> cardAovVos = new TreeMap<>();
+            cardAovVos.putIfAbsent(v.getHeight(),new ArrayList<>());
+            CardModelVo.CardAovVo cardAovVo = new CardModelVo.CardAovVo(v);
+            computeDetailCardAovVo(cardAovVo,v);
+            cardAovVos.get(v.getHeight()).add(cardAovVo);
+            List<List<CardModelVo.CardAovVo>> list = new ArrayList<>();
             dfs(v,vis,cardAovVos);
-            aov_list.add(cardAovVos);
+            cardAovVos.forEach((k1,v1)->{
+                list.add(v1);
+            });
+            aov_list.add(list);
         });
+        
         //构造 bottom_card_list
         List<CardModelVo.CardBottomVo> bottom_card_list = new ArrayList<>();
         cardBottomHashMap.forEach((k,v)->{
@@ -52,21 +59,23 @@ public class JsonVoUtil {
      * @param vis 标志数组，标志是否遍历
      * @param cardAovVos 同组集合
      */
-    private static void dfs(CardAov v,boolean[] vis,List<CardModelVo.CardAovVo> cardAovVos){
+    private static void dfs(CardAov v,boolean[] vis,Map<Integer,List<CardModelVo.CardAovVo>> cardAovVos){
         v.getCover().forEach((k,v1)->{
             if(vis[k])return;
             vis[k]=true;
-            CardModelVo.CardAovVo cardAovVo = new CardModelVo.CardAovVo(v);
-            computeDetailCardAovVo(cardAovVo,v);
-            cardAovVos.add(cardAovVo);   
+            cardAovVos.putIfAbsent(v1.getHeight(),new ArrayList<>());
+            CardModelVo.CardAovVo cardAovVo = new CardModelVo.CardAovVo(v1);
+            computeDetailCardAovVo(cardAovVo,v1);
+            cardAovVos.get(v1.getHeight()).add(cardAovVo);
             dfs(v1,vis,cardAovVos);
         });
         v.getCovered().forEach((k,v1)->{
             if(vis[k])return;
             vis[k]=true;
-            CardModelVo.CardAovVo cardAovVo = new CardModelVo.CardAovVo(v);
-            computeDetailCardAovVo(cardAovVo,v);
-            cardAovVos.add(cardAovVo);
+            cardAovVos.putIfAbsent(v1.getHeight(),new ArrayList<>());
+            CardModelVo.CardAovVo cardAovVo = new CardModelVo.CardAovVo(v1);
+            computeDetailCardAovVo(cardAovVo,v1);
+            cardAovVos.get(v1.getHeight()).add(cardAovVo);
             dfs(v1,vis,cardAovVos);
         });
         

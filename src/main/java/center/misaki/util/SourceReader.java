@@ -86,6 +86,19 @@ public class SourceReader {
             else cardBottomHashMap.get(i).setValue(j);
         }
     }
+
+    /**
+     * 返回应该放置的目标路径
+     * @return 目标路径
+     */
+    public String outPutPath(String target){
+        int n = scanner.nextInt();
+        if(target==null||target.equals("")){
+            return n+".json";
+        }else{
+            return target+n+".json";
+        }
+    }
     
 
 }
