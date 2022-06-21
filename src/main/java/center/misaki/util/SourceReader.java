@@ -60,6 +60,7 @@ public class SourceReader {
         
         //初始化被翻面的牌面的覆盖等级
         while((i=scanner.nextInt())!=-1){
+            cardAovHashMap.putIfAbsent(i,new CardAov(i));
             cardAovHashMap.get(i).setLevel(0);
         }
         

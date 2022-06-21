@@ -31,9 +31,9 @@ public class JsonTest {
     
     
     
-    int n=1;
-    String sourcePath="src/test/resources/testExample"+n+".txt";
-    String targetPath="src/test/resources/"+n+".json";
+    int n=4;
+    String sourcePath="src/main/resources/example/example"+n+".txt";
+    String targetPath="src/main/resources/json/"+n+".json";
     
     @Test
     public void testOutPutToFile() throws IOException{
