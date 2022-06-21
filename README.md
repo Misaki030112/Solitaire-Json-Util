@@ -111,7 +111,7 @@
 
 ### 工具工程目录截图：
 
-![image-20220621121932418](https://github.com/WSYwsy22/Solitaire-Json-Util/blob/master/src/test/resources/readme01.png)
+![readme01.png](src/test/resources/readme01.png)
 
 ### 使用方法：
 
@@ -126,4 +126,4 @@ java -jar JsonTool-1.0.jar [your sourcePath]
 
 * 运行工程目录下的 JsonTest  -> testOutPutToFile() 方法，修改参数运行。
 
-![image-20220621122652260](https://github.com/WSYwsy22/Solitaire-Json-Util/blob/master/src/test/resources/readme02.png)
+![readme02.png](src/test/resources/readme02.png)
