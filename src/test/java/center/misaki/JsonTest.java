@@ -31,7 +31,7 @@ public class JsonTest {
     
     
     
-    int n=4;
+    int n=10;
     String sourcePath="src/main/resources/example/example"+n+".txt";
     String targetPath="src/main/resources/json/"+n+".json";
     
